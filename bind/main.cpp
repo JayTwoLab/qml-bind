@@ -10,6 +10,8 @@
 
 int main(int argc, char *argv[])
 {
+    //{{ [0] boiler plate code
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
@@ -25,6 +27,9 @@ int main(int argc, char *argv[])
 
     engine.load(url);
 
+    //}} [0]
+
+    // [1] create timer object
     QMLTimer* qmlTimer = new QMLTimer( &app );
 
     for ( int ic = 0; ic < engine.rootObjects().size(); ic++ )
@@ -33,14 +38,12 @@ int main(int argc, char *argv[])
         if (obj == nullptr)
             continue;
 
-        // [1] find the root object that has 'objectName'. 'objectName' is 'mainWindow'.
-
+        // [2] find the root object that has 'objectName'. 'objectName' is 'mainWindow'.
         QVariant val = obj->property( "objectName" );
         if ( false == val.isNull() &&
              val.toString() == QString("mainWindow") )
         {
-            // [2] find child object. 'objectName' is 'mainText'.
-
+            // [3] find child object. 'objectName' is 'mainText'.
             QObject *text = obj->findChild<QObject*>( "mainText" );
             if ( text != nullptr )
             {
