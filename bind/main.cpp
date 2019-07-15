@@ -6,6 +6,8 @@
 #include <QtGlobal>
 #include <QDebug>
 
+#include "qmltimer.h"
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -22,6 +24,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     engine.load(url);
+
+    QMLTimer* qmlTimer = new QMLTimer( &app );
 
     for ( int ic = 0; ic < engine.rootObjects().size(); ic++ )
     {
@@ -40,12 +44,13 @@ int main(int argc, char *argv[])
             QObject *text = obj->findChild<QObject*>( "mainText" );
             if ( text != nullptr )
             {
+                qmlTimer->objText = text;
+
                 QVariant valX = text->property( "x" );
                 qDebug() << "x : " << valX;
             }
         }
     }
-
 
     return app.exec();
 }
