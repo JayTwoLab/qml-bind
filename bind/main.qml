@@ -1,6 +1,9 @@
+// main.qml
+
 import QtQuick 2.12
 import QtQuick.Window 2.12
 
+// root object
 Window {
     objectName: "mainWindow"
     visible: true
@@ -16,7 +19,8 @@ Window {
          id: thisLabel
 
          // (2) set x- and y-position
-         x: 24; y: 16
+         x: 24
+         y: 16
 
          // (3) bind height to 2 * width
          height: 2 * width
@@ -38,7 +42,7 @@ Window {
          KeyNavigation.tab: otherLabel
 
          // (9) signal handler for property changes
-         onHeightChanged: console.log('height:', height)
+         onHeightChanged: { console.log('height:', height) }
 
          // focus is need to receive key events
          focus: true
