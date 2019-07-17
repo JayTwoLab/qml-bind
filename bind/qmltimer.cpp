@@ -13,7 +13,7 @@ QMLTimer::QMLTimer(QObject *parent) : QObject(parent)
 {
     objText = nullptr;
 
-    // create and start timer(1s span)
+    // create and start timer(1 sec. span)
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(processThing()));
     timer->start(1000);

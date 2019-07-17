@@ -2,14 +2,18 @@
 
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQuick.Controls 1.4
 
-// root object
+// root object(s)
+
 Window {
     objectName: "mainWindow"
     visible: true
     width: 640
     height: 480
     title: qsTr("Hello World")
+
+    property string testprop: "juke";
 
     Text {
 
@@ -42,7 +46,9 @@ Window {
          KeyNavigation.tab: otherLabel
 
          // (9) signal handler for property changes
-         onHeightChanged: { console.log('height:', height) }
+         onHeightChanged: {
+             // console.log('height:', height)
+         }
 
          // focus is need to receive key events
          focus: true
@@ -50,5 +56,21 @@ Window {
          // change color based on focus value
          color: focus?"red":"black"
      }
+
+    Button { // our Button component
+        id: button
+        x: 250; y: 12
+        text: "Push me"
+        onClicked: {
+            // [1] call function
+            var testParam = "COOL";
+            var tempResult = cppValue1.testCalling( testParam ); // call 'testCalling' of C++ 'cppValue1'
+            console.log( tempResult ); //  tc: COOL, (random number)
+
+            // [2] get property of C++ 'cppValue1'
+            var tempValue = cppValue1.strCppValue;
+            console.log( tempValue ); // CppValue : (random number that is made by constructor)
+        }
+    }
 
 }

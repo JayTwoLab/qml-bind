@@ -2,7 +2,9 @@
 
 ## Example
 - See [bind](bind/) example.
-	1. This is an example of setting QML properties in C++.
+	1. set QML properties in C++.
+	2. get C++ properties in QML
+	3. call C++ function in QML
 
 ## License
 - MIT License

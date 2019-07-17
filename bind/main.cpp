@@ -2,11 +2,13 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 #include <QtGlobal>
 #include <QDebug>
 
 #include "qmltimer.h"
+#include "cppvalue.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,13 +31,18 @@ int main(int argc, char *argv[])
 
     //}} [0]
 
-    // [1] create timer object
+    // set context
+    CppValue* cppValue1 = new CppValue( &app );
+    engine.rootContext()->setContextProperty( "cppValue1", cppValue1 );
+
+    // [1] create timer object (for testing)
     QMLTimer* qmlTimer = new QMLTimer( &app );
 
-    for ( int ic = 0; ic < engine.rootObjects().size(); ic++ )
+    int rootObjSize = engine.rootObjects().size();
+    for ( int ic = 0; ic < rootObjSize ; ic++ )
     {
         QObject* obj = engine.rootObjects().at( ic );
-        if (obj == nullptr)
+        if ( obj == nullptr )
             continue;
 
         // [2] find the root object that has 'objectName'. 'objectName' is 'mainWindow'.
@@ -43,13 +50,17 @@ int main(int argc, char *argv[])
         if ( false == val.isNull() &&
              val.toString() == QString("mainWindow") )
         {
-            // [3] find child object. 'objectName' is 'mainText'.
-            QObject *text = obj->findChild<QObject*>( "mainText" );
-            if ( text != nullptr )
-            {
-                qmlTimer->objText = text;
+            // [2-1] success to find 'mainWindow'
+            QObject* mainWindowObj = obj;
+            mainWindowObj->setProperty( "title", QVariant(QString("HELLO WORLD")) ); // change 'title' of 'mainWindow'
 
-                QVariant valX = text->property( "x" );
+            // [3] find child object. which objectName is 'mainText'.
+            QObject *textObj = mainWindowObj->findChild<QObject*>( "mainText" );
+            if ( textObj != nullptr )
+            {
+                qmlTimer->objText = textObj;
+
+                QVariant valX = textObj->property( "x" ); // get 'x' from 'mainText'
                 qDebug() << "x : " << valX;
             }
         }
