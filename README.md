@@ -3,7 +3,8 @@
 ## Example
 
 - See [bind](bind/) example.
-	1. set QML properties in C++.
+
+1. set QML properties in C++.
 	
 ```cpp
     int rootObjSize = engine.rootObjects().size();
@@ -34,7 +35,7 @@
             }			
 ```	
 	
-	2. get C++ properties in QML
+2. get C++ properties in QML
 
 ```cpp
     // [1] set context
@@ -64,7 +65,8 @@ public slots:
             console.log( tempValue ); // CppValue : (random number that is made by constructor)
 ```	
 	
-	3. call C++ function in QML
+3. call C++ function in QML
+	
 ```qml
     Button { // our Button component
         id: button
@@ -78,5 +80,6 @@ public slots:
 ```
 
 ## License
+
 - MIT License
 
