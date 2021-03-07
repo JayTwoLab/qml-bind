@@ -1,8 +1,13 @@
 // main.qml
 
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Controls 1.4
+// import QtQuick 2.12
+// import QtQuick.Window 2.12
+// import QtQuick.Controls 1.4
+
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
+
 
 // root object(s)
 
@@ -54,7 +59,7 @@ Window {
          focus: true
 
          // change color based on focus value
-         color: focus?"red":"black"
+         color: focus ? "red" : "black"
      }
 
     Button { // our Button component
@@ -62,10 +67,10 @@ Window {
         x: 250; y: 12
         text: "Push me"
         onClicked: {
-            // [1] call function
+            // [1] call function of C++ class
             var testParam = "COOL";
-            var tempResult = cppValue1.testCalling( testParam ); // call 'testCalling' of C++ 'cppValue1'
-            console.log( tempResult ); //  tc: COOL, (random number)
+            var tempResult = cppValue1.testCalling( testParam ); // call function 'testCalling' of C++ class 'cppValue1'
+            console.log( tempResult );
 
             // [2] get property of C++ 'cppValue1'
             var tempValue = cppValue1.strCppValue;

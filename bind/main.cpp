@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     //}} [0]
 
     // [1] set context
-    CppValue* cppValue1 = new CppValue( &app );
+    CppValue* cppValue1 = new CppValue( &app ); // custom class based on QObject
     engine.rootContext()->setContextProperty( "cppValue1", cppValue1 );
 
     // [2] create timer object (for testing)

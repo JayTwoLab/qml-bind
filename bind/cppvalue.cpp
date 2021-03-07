@@ -1,3 +1,6 @@
+
+#include <QtCore>
+
 #include "cppvalue.h"
 
 CppValue::CppValue(QObject *parent) : QObject(parent)
@@ -13,7 +16,14 @@ QString CppValue::getStrCppValue()
 Q_INVOKABLE QString CppValue::testCalling(QString param) const
 {
     QString ret;
-    ret = QString("tc: %1, %2").arg( param ).arg( rand() );
+    QTime ct = QTime::currentTime();
+
+    ret = QString("[%2:%3:%4] testCalling( %1 )")
+            .arg( param )
+            .arg( ct.hour() )
+            .arg( ct.minute() )
+            .arg( ct.second() );
+
     return ret;
 }
 
